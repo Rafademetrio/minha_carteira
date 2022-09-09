@@ -1,10 +1,7 @@
 package com.gmail.rafademetiro.minha_carteira.services;
 
 import com.gmail.rafademetiro.minha_carteira.exceptions.ObjectNotFoundException;
-import com.gmail.rafademetiro.minha_carteira.models.Revenue;
-import com.gmail.rafademetiro.minha_carteira.models.RevenueInputDTO;
-import com.gmail.rafademetiro.minha_carteira.models.RevenueOutputDTO;
-import com.gmail.rafademetiro.minha_carteira.models.User;
+import com.gmail.rafademetiro.minha_carteira.models.*;
 import com.gmail.rafademetiro.minha_carteira.repositories.RevenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,19 +32,11 @@ public class RevenueService {
     }
 
     public ResponseEntity<RevenueOutputDTO> save(RevenueInputDTO revenueInputDTO) {
-        User user = this.userService.findById(revenueInputDTO.getUserId());
-        Revenue revenue = new Revenue(LocalDate.now(), revenueInputDTO.getValue(), user);
-        this.revenueRepository.save(revenue);
-
-        accountService.addRevenue(revenueInputDTO, user.getAccount());
-
-        RevenueOutputDTO revenueResponse = new RevenueOutputDTO(revenue);
-
-        return new ResponseEntity<>(revenueResponse, HttpStatus.CREATED);
+        return accountService.addRevenue(revenueInputDTO);
     }
 
-    public Iterable<RevenueOutputDTO> findByUserId(BigInteger userId) {
-        Iterable<Revenue> revenueIterable = this.revenueRepository.findByUserId(userId);
+    public Iterable<RevenueOutputDTO> findByAccountId(BigInteger accountId) {
+        Iterable<Revenue> revenueIterable = this.revenueRepository.findByAccountId(accountId);
         List<RevenueOutputDTO> revenueOutputDTOList = new ArrayList<>();
 
         revenueIterable.forEach(revenue -> revenueOutputDTOList.add(new RevenueOutputDTO(revenue)));
@@ -63,8 +52,8 @@ public class RevenueService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public ResponseEntity deleteByUserId(BigInteger userId){
-        Iterable<Revenue> revenueIterable = this.revenueRepository.findByUserId(userId);
+    public ResponseEntity deleteByAccountId(BigInteger accountId){
+        Iterable<Revenue> revenueIterable = this.revenueRepository.findByAccountId(accountId);
         this.revenueRepository.deleteAll(revenueIterable);
         return new ResponseEntity<>(HttpStatus.OK);
     }

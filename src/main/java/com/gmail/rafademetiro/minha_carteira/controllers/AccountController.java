@@ -1,5 +1,6 @@
 package com.gmail.rafademetiro.minha_carteira.controllers;
 
+import com.gmail.rafademetiro.minha_carteira.models.Account;
 import com.gmail.rafademetiro.minha_carteira.models.AccountInputDTO;
 import com.gmail.rafademetiro.minha_carteira.models.AccountOutputDTO;
 import com.gmail.rafademetiro.minha_carteira.repositories.AccountRepository;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.math.BigInteger;
 
 @RestController
 @RequestMapping(path = "/account")
@@ -21,9 +24,15 @@ public class AccountController {
         return this.accountService.save(accountInputDTO);
     }
 
-    @GetMapping
-    public ResponseEntity<AccountOutputDTO> findByNumber(@PathVariable String number){
+    @GetMapping(path = "/{number}")
+    public Account findByNumber(@PathVariable String number){
         return this.accountService.findByNumber(number);
+    }
+
+    @GetMapping(path = "/findById")
+    public Account findById(@RequestParam int id){
+        BigInteger identification = BigInteger.valueOf(id);
+        return this.accountService.findById(identification);
     }
 
 

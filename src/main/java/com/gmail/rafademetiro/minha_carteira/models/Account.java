@@ -24,7 +24,11 @@ public class Account {
     @OneToMany
     private List<Expense> expenses;
 
-    @OneToMany
+    @OneToMany(
+            mappedBy = "account",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Revenue> revenues;
 
     public Account() {
@@ -112,5 +116,10 @@ public class Account {
 
     public void setRevenues(List<Revenue> revenues) {
         this.revenues = revenues;
+    }
+
+    @Override
+    public String toString() {
+        return "Account ID: " + this.id + " Balance: " + this.balance + " Revenues: " + revenues.toString();
     }
 }

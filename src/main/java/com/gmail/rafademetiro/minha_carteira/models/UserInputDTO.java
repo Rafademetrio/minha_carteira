@@ -3,6 +3,7 @@ package com.gmail.rafademetiro.minha_carteira.models;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.math.BigInteger;
 
 public class UserInputDTO {
@@ -10,7 +11,7 @@ public class UserInputDTO {
     private BigInteger id;
 
     @NotBlank
-    @Min(2)
+    @Size(min = 2)
     private String name;
 
     @NotBlank
@@ -18,7 +19,7 @@ public class UserInputDTO {
     private String email;
 
     @NotBlank
-    @Min(6)
+    @Size(min = 6)
     private String password;
 
     private BigInteger accountId;
