@@ -19,6 +19,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AccountService accountService;
+
 //    @Autowired
 //    private ExpenseService expenseService;
 //
@@ -69,7 +72,8 @@ public class UserService {
     private User updateUserAttributes(UserInputDTO userInputDTO, User user){
         user.setEmail(userInputDTO.getEmail());
         user.setName(userInputDTO.getName());
-        user.setPassword(user.getPassword());
+        user.setPassword(userInputDTO.getPassword());
+        user.setAccount(this.accountService.findById(userInputDTO.getAccountId()));
 
         return user;
     }

@@ -87,4 +87,7 @@ public class AccountService {
 
     }
 
+    public Iterable<Account> findAll() {
+        return this.accountRepository.findAll();
+    }
 }

@@ -35,5 +35,10 @@ public class AccountController {
         return this.accountService.findById(identification);
     }
 
+    @GetMapping(path = "/findAll")
+    public Iterable<Account> findAll(){
+        return  this.accountService.findAll();
+    }
+
 
 }
