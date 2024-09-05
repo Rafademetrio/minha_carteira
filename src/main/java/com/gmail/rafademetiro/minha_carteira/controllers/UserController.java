@@ -5,6 +5,7 @@ import com.gmail.rafademetiro.minha_carteira.models.User;
 import com.gmail.rafademetiro.minha_carteira.models.UserInputDTO;
 import com.gmail.rafademetiro.minha_carteira.models.UserOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +30,8 @@ public class UserController{
         return this.userService.findById(userInputDTO.getId());
     }
 
-    @PostMapping
-    public ResponseEntity<UserOutputDTO> save(@Valid @RequestBody UserInputDTO userInputDTO){
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<UserOutputDTO> save(@ModelAttribute UserInputDTO userInputDTO){
         return this.userService.save(userInputDTO);
     }
 

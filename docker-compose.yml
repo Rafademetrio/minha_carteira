@@ -1,0 +1,11 @@
+services:
+  mysql:
+    container_name: mysqltestJava
+    image: mysql/mysql-server:latest
+    restart: always
+    environment:
+      - MYSQL_DB=minha_carteira
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+    ports:
+      - '3306:3306'
