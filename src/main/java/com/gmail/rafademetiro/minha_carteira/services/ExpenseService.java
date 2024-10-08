@@ -22,24 +22,27 @@ public class ExpenseService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AccountService accountService;
+
     public Expense findById(BigInteger id) {
         return this.expenseRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Expense not found!! ID: " + id));
     }
 
-    public Iterable<ExpenseOutputDTO> findByUserId(BigInteger userId) {
-        Iterable<Expense> expenseIterable = this.expenseRepository.findByUserId(userId);
-        List<ExpenseOutputDTO> expenseOutputDTOList = new ArrayList<>();
-
-        expenseIterable.forEach(expense -> expenseOutputDTOList.add(new ExpenseOutputDTO(expense)));
-
-        Iterable<ExpenseOutputDTO> expenseOutputDTOIterable = expenseOutputDTOList;
-
-        return expenseOutputDTOIterable;
-    }
+//    public Iterable<ExpenseOutputDTO> findByUserId(BigInteger userId) {
+//        Iterable<Expense> expenseIterable = this.expenseRepository.findByUserId(userId);
+//        List<ExpenseOutputDTO> expenseOutputDTOList = new ArrayList<>();
+//
+//        expenseIterable.forEach(expense -> expenseOutputDTOList.add(new ExpenseOutputDTO(expense)));
+//
+//        Iterable<ExpenseOutputDTO> expenseOutputDTOIterable = expenseOutputDTOList;
+//
+//        return expenseOutputDTOIterable;
+//    }
 
     public ResponseEntity<ExpenseOutputDTO> save(ExpenseInputDTO expenseInputDTO) {
-        User user = userService.findById(expenseInputDTO.getUserId());
-        Expense expense = new Expense(LocalDate.now(), expenseInputDTO.getValue(), user);
+        Account account = this.accountService.findAccoundById(expenseInputDTO.getAccountId());
+        Expense expense = new Expense(LocalDate.now(), expenseInputDTO.getValue(), account);
 
         ExpenseOutputDTO expenseResponse = new ExpenseOutputDTO(this.expenseRepository.save(expense));
 
@@ -51,10 +54,10 @@ public class ExpenseService {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    public ResponseEntity deleteByUserId(BigInteger userId){
-        Iterable<Expense> expenseIterable = expenseRepository.findByUserId(userId);
-        expenseRepository.deleteAll(expenseIterable);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    public ResponseEntity deleteByUserId(BigInteger userId){
+//        Iterable<Expense> expenseIterable = expenseRepository.findByUserId(userId);
+//        expenseRepository.deleteAll(expenseIterable);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
 
 }

@@ -17,10 +17,10 @@ public class ExpenseController {
     @Autowired
     private ExpenseService expenseService;
 
-    @GetMapping(path = "/findByUserId")
-    public Iterable<ExpenseOutputDTO> findByUserId(@RequestBody ExpenseInputDTO expenseInputDTO) {
-        return this.expenseService.findByUserId(expenseInputDTO.getUserId());
-    }
+//    @GetMapping(path = "/findByUserId")
+//    public Iterable<ExpenseOutputDTO> findByUserId(@RequestBody ExpenseInputDTO expenseInputDTO) {
+//        return this.expenseService.findByUserId(expenseInputDTO.getUserId());
+//    }
 
     @PostMapping
     public ResponseEntity<ExpenseOutputDTO> save(@Valid @RequestBody ExpenseInputDTO expenseInputDTO) {
@@ -32,9 +32,9 @@ public class ExpenseController {
         return this.expenseService.delete(expenseInputDTO);
     }
 
-    @DeleteMapping(path = "/deleteByUserId")
-    public ResponseEntity deleteByUserId(@RequestBody ExpenseInputDTO expenseInputDTO) {
-       return this.expenseService.deleteByUserId(expenseInputDTO.getUserId());
-    }
+//    @DeleteMapping(path = "/deleteByUserId")
+//    public ResponseEntity deleteByUserId(@RequestBody ExpenseInputDTO expenseInputDTO) {
+//       return this.expenseService.deleteByUserId(expenseInputDTO.getUserId());
+//    }
 
 }

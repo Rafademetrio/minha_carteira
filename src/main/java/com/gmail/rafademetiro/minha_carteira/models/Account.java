@@ -17,14 +17,18 @@ public class Account {
 
     private String number;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     private LocalDate memberSince;
 
     private BigDecimal balance;
 
-    @OneToMany
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Expense> expenses;
 
-    @OneToMany
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Revenue> revenues;
 
     public Account() {
@@ -57,12 +61,12 @@ public class Account {
     }
 
     public void addRevenue(Revenue revenue){
-        this.balance.add(revenue.getValue());
+        this.balance.add(revenue.getAmount());
         this.revenues.add(revenue);
     }
 
     public void addExpense(Expense expense){
-        this.balance.subtract(expense.getValue());
+        this.balance.subtract(expense.getAmount());
         this.expenses.add(expense);
     }
 

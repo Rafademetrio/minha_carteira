@@ -12,23 +12,23 @@ public class RevenueOutputDTO {
 
     private BigDecimal value;
 
-    private BigInteger userId;
+    private BigInteger accountId;
 
     public RevenueOutputDTO(Revenue revenue) {
         this.id = revenue.getId();
         this.date = revenue.getDate();
-        this.value = revenue.getValue();
-        this.userId = revenue.getUser().getId();
+        this.value = revenue.getAmount();
+        this.accountId = revenue.getAccount().getId();
     }
 
     public RevenueOutputDTO() {
     }
 
-    public RevenueOutputDTO(BigInteger id, LocalDate date, BigDecimal value, BigInteger userId) {
+    public RevenueOutputDTO(BigInteger id, LocalDate date, BigDecimal value, BigInteger accountId) {
         this.id = id;
         this.date = date;
         this.value = value;
-        this.userId = userId;
+        this.accountId = accountId;
     }
 
     public BigInteger getId() {
@@ -55,11 +55,11 @@ public class RevenueOutputDTO {
         this.value = value;
     }
 
-    public BigInteger getUserId() {
-        return userId;
+    public BigInteger getAccountId() {
+        return accountId;
     }
 
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
+    public void setAccountId(BigInteger accountId) {
+        this.accountId = accountId;
     }
 }

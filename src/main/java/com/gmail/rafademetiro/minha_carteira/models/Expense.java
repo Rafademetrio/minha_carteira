@@ -1,7 +1,5 @@
 package com.gmail.rafademetiro.minha_carteira.models;
 
-import com.gmail.rafademetiro.minha_carteira.models.User;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -19,19 +17,19 @@ public class Expense {
     private LocalDate date;
 
     @NotNull
-    private BigDecimal value;
+    private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public Expense() {
     }
 
-    public Expense(LocalDate date, BigDecimal value, User user) {
+    public Expense(LocalDate date, BigDecimal amount, Account account) {
         this.date = date;
-        this.value = value;
-        this.user = user;
+        this.amount = amount;
+        this.account = account;
     }
 
     public BigInteger getId() {
@@ -50,19 +48,19 @@ public class Expense {
         this.date = date;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

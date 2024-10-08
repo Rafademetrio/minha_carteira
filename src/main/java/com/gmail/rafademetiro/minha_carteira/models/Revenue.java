@@ -1,10 +1,6 @@
 package com.gmail.rafademetiro.minha_carteira.models;
 
-import com.gmail.rafademetiro.minha_carteira.models.User;
-import com.gmail.rafademetiro.minha_carteira.services.UserService;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -20,26 +16,26 @@ public class Revenue {
     private LocalDate date;
 
 
-    private BigDecimal value;
+    private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public Revenue() {
     }
 
-    public Revenue(RevenueInputDTO revenueInputDTO, User user) {
+    public Revenue(RevenueInputDTO revenueInputDTO, Account account) {
         this.id = revenueInputDTO.getId();
         this.date = revenueInputDTO.getDate();
-        this.value = revenueInputDTO.getValue();
-        this.user = user;
+        this.amount = revenueInputDTO.getValue();
+        this.account = account;
     }
 
-    public Revenue(LocalDate date, BigDecimal value, User user) {
+    public Revenue(LocalDate date, BigDecimal amount, Account account) {
         this.date = date;
-        this.value = value;
-        this.user = user;
+        this.amount = amount;
+        this.account = account;
     }
 
     public BigInteger getId() {
@@ -58,21 +54,19 @@ public class Revenue {
         this.date = date;
     }
 
-    public BigDecimal getValue() {
-        return value;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
-
-
 }

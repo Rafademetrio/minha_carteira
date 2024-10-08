@@ -17,7 +17,7 @@ public class AccountController {
     AccountService accountService;
 
     @PostMapping
-    public ResponseEntity<AccountOutputDTO> createAccount(@RequestBody AccountInputDTO accountInputDTO){
+    public ResponseEntity<AccountOutputDTO> createAccount(@ModelAttribute AccountInputDTO accountInputDTO){
         return this.accountService.save(accountInputDTO);
     }
 

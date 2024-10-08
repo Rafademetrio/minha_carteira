@@ -22,10 +22,10 @@ public class RevenueController {
     private RevenueService revenueService;
 
 
-    @GetMapping(path = "/findByUserId")
-    public Iterable<RevenueOutputDTO> findByUserId(@RequestBody RevenueInputDTO revenueInputDTO) {
-        return this.revenueService.findByUserId(revenueInputDTO.getUserId());
-    }
+//    @GetMapping(path = "/findByUserId")
+//    public Iterable<RevenueOutputDTO> findByUserId(@RequestBody RevenueInputDTO revenueInputDTO) {
+//        return this.revenueService.findByUserId(revenueInputDTO.getUserId());
+//    }
 
     @GetMapping
     public Revenue findById(@RequestBody RevenueInputDTO revenueInputDTO) {
@@ -42,10 +42,10 @@ public class RevenueController {
         return this.revenueService.delete(revenueInputDTO.getId());
     }
 
-    @DeleteMapping(path = "/deleteByUserId")
-    public ResponseEntity deleteByUserId(@RequestBody RevenueInputDTO revenueInputDTO) {
-        return this.revenueService.deleteByUserId(revenueInputDTO.getUserId());
-    }
+//    @DeleteMapping(path = "/deleteByUserId")
+//    public ResponseEntity deleteByUserId(@RequestBody RevenueInputDTO revenueInputDTO) {
+//        return this.revenueService.deleteByUserId(revenueInputDTO.getUserId());
+//    }
 
 
 }

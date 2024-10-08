@@ -7,8 +7,8 @@ import java.math.BigInteger;
 
 public interface ExpenseRepository extends PagingAndSortingRepository<Expense, BigInteger> {
 
-    Iterable<Expense> findByUserId(BigInteger userId);
+    Iterable<Expense> findByAccountId(BigInteger accountId);
 
-    void deleteByUserId(BigInteger userId);
+    void deleteByAccountId(BigInteger accountId);
 
 }

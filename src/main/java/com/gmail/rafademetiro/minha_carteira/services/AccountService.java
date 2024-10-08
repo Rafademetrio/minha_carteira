@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class AccountService {
@@ -38,13 +40,36 @@ public class AccountService {
         return new ResponseEntity<>(accountResponse, HttpStatus.OK);
     }
 
+    public ResponseEntity<AccountOutputDTO> findById(BigInteger id){
+        Optional<Account> accountOptional = this.accountRepository.findById(id);
+        if(accountOptional.isPresent()){
+            AccountOutputDTO accountResponse = new AccountOutputDTO(accountOptional.get());
+            return new ResponseEntity<>(accountResponse, HttpStatus.OK);
+        }else{
+            System.out.println("Any account found.");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    public Account findAccoundById(BigInteger id){
+        Optional<Account> accountOptional = this.accountRepository.findById(id);
+        if(accountOptional.isPresent()){
+            return  accountOptional.get();
+        }else{
+            System.out.println("Any account found.");
+            return null;
+        }
+    }
+
 
     public void addRevenue(RevenueInputDTO revenueInputDTO, Account account) {
-        User user = this.userService.findById(revenueInputDTO.getUserId());
-        Revenue revenue = new Revenue(revenueInputDTO, user);
+        Revenue revenue = new Revenue(revenueInputDTO, account);
         account.addRevenue(revenue);
 
         this.accountRepository.save(account);
     }
+
+    //TODO (implement addExpense)
 
 }
