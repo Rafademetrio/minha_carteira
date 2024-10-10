@@ -8,6 +8,8 @@ import com.gmail.rafademetiro.minha_carteira.models.User;
 import com.gmail.rafademetiro.minha_carteira.models.UserInputDTO;
 import com.gmail.rafademetiro.minha_carteira.models.UserOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +59,12 @@ public class UserController{
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<UserOutputDTO> save(@ModelAttribute UserInputDTO userInputDTO){
-        return this.userService.save(userInputDTO);
+        try{
+            return this.userService.save(userInputDTO);
+        }catch (DataIntegrityViolationException e){
+            String errorMessage = "Erro: Já existe um usuário com esse email ou outro campo único.";
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new UserOutputDTO(errorMessage));
+        }
     }
 
     @DeleteMapping

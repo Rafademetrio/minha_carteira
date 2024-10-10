@@ -27,6 +27,10 @@ public class AccountOutputDTO {
         this.revenue = account.getRevenues();
     }
 
+    public AccountOutputDTO(String number){
+        this.number = number;
+    }
+
     public AccountOutputDTO(BigInteger id, String number, LocalDate memberSince, List<Expense> expenses, List<Revenue> revenue) {
         this.id = id;
         this.number = number;

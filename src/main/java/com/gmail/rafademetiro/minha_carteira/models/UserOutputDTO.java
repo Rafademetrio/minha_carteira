@@ -22,6 +22,10 @@ public class UserOutputDTO {
         this.account = user.getAccount();
     }
 
+    public UserOutputDTO(String email){
+        this.email = email;
+    }
+
     public UserOutputDTO(BigInteger id, String name, String email, String password) {
         this.id = id;
         this.name = name;
