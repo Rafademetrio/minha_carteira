@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -52,6 +53,12 @@ public class UserService {
         return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
     }
 
+    public ResponseEntity<UserOutputDTO> save(User user){
+        User savedUser = this.userRepository.save(user);
+        UserOutputDTO userResponse = new UserOutputDTO(savedUser);
+        return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+    }
+
     public ResponseEntity deleteById(BigInteger id){
         //this.expenseService.deleteByUserId(id);
         //this.revenueService.deleteByUserId(id);
@@ -72,5 +79,13 @@ public class UserService {
         user.setPassword(user.getPassword());
 
         return user;
+    }
+
+    public Optional<User> findByName(String name) {
+        return this.userRepository.findByName(name);
+    }
+
+    public List<User> findByNameContaining(String name){
+        return this.userRepository.findByNameContaining(name);
     }
 }

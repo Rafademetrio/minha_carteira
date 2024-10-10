@@ -52,6 +52,10 @@ public class AccountService {
 
     }
 
+    public Account findAccoundByNumber(String number){
+        return this.accountRepository.findByNumber(number);
+    }
+
     public Account findAccoundById(BigInteger id){
         Optional<Account> accountOptional = this.accountRepository.findById(id);
         if(accountOptional.isPresent()){
@@ -69,6 +73,11 @@ public class AccountService {
 
         this.accountRepository.save(account);
     }
+
+    public Iterable<Account> findAll(){
+        return this.accountRepository.findAll();
+    }
+
 
     //TODO (implement addExpense)
 

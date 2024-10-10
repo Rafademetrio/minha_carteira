@@ -1,6 +1,8 @@
 package com.gmail.rafademetiro.minha_carteira.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,10 +17,12 @@ public class Account {
     @Column(columnDefinition = "BIGINT")
     private BigInteger id;
 
+    @Column(unique = true)
     private String number;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference
     private User user;
 
     private LocalDate memberSince;
@@ -60,13 +64,23 @@ public class Account {
         this.revenues = revenues;
     }
 
+    public Account(BigInteger id, String number, User user, LocalDate memberSince, BigDecimal balance, List<Expense> expenses, List<Revenue> revenues) {
+        this.id = id;
+        this.number = number;
+        this.user = user;
+        this.memberSince = memberSince;
+        this.balance = balance;
+        this.expenses = expenses;
+        this.revenues = revenues;
+    }
+
     public void addRevenue(Revenue revenue){
-        this.balance.add(revenue.getAmount());
+        this.balance = this.balance.add(revenue.getAmount());
         this.revenues.add(revenue);
     }
 
     public void addExpense(Expense expense){
-        this.balance.subtract(expense.getAmount());
+        this.balance = this.balance.subtract(expense.getAmount());
         this.expenses.add(expense);
     }
 
@@ -116,5 +130,13 @@ public class Account {
 
     public void setRevenues(List<Revenue> revenues) {
         this.revenues = revenues;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

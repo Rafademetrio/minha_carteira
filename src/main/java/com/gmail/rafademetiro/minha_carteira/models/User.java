@@ -1,6 +1,10 @@
 package com.gmail.rafademetiro.minha_carteira.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.math.BigInteger;
 import java.util.List;
 
@@ -12,13 +16,17 @@ public class User {
     @Column(columnDefinition = "BIGINT")
     private BigInteger id;
 
+    @NotNull
     private String name;
 
+    @Email
     private String email;
 
+    @NotNull
     private String password;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // controla a recursividade nas chamadas dos selects
     private Account account;
 
     public Account getAccount() {
@@ -36,6 +44,12 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public User(UserInputDTO userInputDTO){
+        this.name = userInputDTO.getName();
+        this.email = userInputDTO.getEmail();
+        this.password = userInputDTO.getPassword();
     }
 
     public BigInteger getId() {

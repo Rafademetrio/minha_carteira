@@ -1,5 +1,6 @@
 package com.gmail.rafademetiro.minha_carteira.controllers;
 
+import com.gmail.rafademetiro.minha_carteira.models.Account;
 import com.gmail.rafademetiro.minha_carteira.models.AccountInputDTO;
 import com.gmail.rafademetiro.minha_carteira.models.AccountOutputDTO;
 import com.gmail.rafademetiro.minha_carteira.repositories.AccountRepository;
@@ -21,9 +22,14 @@ public class AccountController {
         return this.accountService.save(accountInputDTO);
     }
 
-    @GetMapping
+    @GetMapping("/{number}")
     public ResponseEntity<AccountOutputDTO> findByNumber(@PathVariable String number){
         return this.accountService.findByNumber(number);
+    }
+
+    @GetMapping("/all")
+    public Iterable<Account> findAll(){
+        return this.accountService.findAll();
     }
 
 
