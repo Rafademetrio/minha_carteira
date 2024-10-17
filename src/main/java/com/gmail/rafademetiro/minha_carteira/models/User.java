@@ -35,7 +35,11 @@ public class User {
     }
 
     public void setAccount(Account account) {
+        if (this.account != null) {
+            throw new IllegalStateException("User already has an associated account");
+        }
         this.account = account;
+        account.setUser(this);
     }
 
     public User() {
@@ -84,4 +88,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

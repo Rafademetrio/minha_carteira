@@ -82,11 +82,21 @@ public class UserController{
 
         Account account = this.accountService.findAccoundByNumber(accountNumber);
 
-        user.setAccount(account);
+        if (account.getUser() != null) { // this is to check if the account is already with another user.
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(null);
+        }
 
+        user.setAccount(account);
+        account.setUser(user);
 
 
         return this.userService.save(user);
+    }
+
+    @GetMapping("/usersWithoutAccount")
+    public List<User> usersWithoutAccount(){
+        return this.userService.usersWithoutAccount();
     }
 
 
